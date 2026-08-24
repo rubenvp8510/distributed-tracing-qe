@@ -36,8 +36,10 @@ for attempt in $(seq 1 30); do
     exit 0
   fi
 
-  echo "Attempt $attempt: Not all event log strings found yet, retrying in 10s..."
-  sleep 10
+  if (( attempt < 30 )); then
+    echo "Attempt $attempt: Not all event log strings found yet, retrying in 10s..."
+    sleep 10
+  fi
 done
 
 echo "No Kubernetes events found in OpenTelemetry collector after 30 attempts"
